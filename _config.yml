@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Amy Elise Adair"
 title_separator          : "-"
 name                     : &name "Amy Adair"
-description              : &description "NSF Graduate Research Fellow, AI for STEM Education"
+description              : &description "NSF Graduate Research Fellow, Ph.D. Education"
 url                      : https://aadair3.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "aadair3/aadair3.github.io"
@@ -82,7 +82,7 @@ analytics:
 author:
   name             : "Amy Adair"
   avatar           : "biopic-December2020.jpg"
-  bio              : "NSF Graduate Research Fellow, AI for STEM Education"
+  bio              : "NSF Graduate Research Fellow, Ph.D. Education"
   location         : 
   employer         :
   pubmed           : 
