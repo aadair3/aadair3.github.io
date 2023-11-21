@@ -2,7 +2,6 @@
 title: "An integrated approach to learning solutions: UCD + LS&D + AIEd"
 collection: publications
 permalink: /publication/2022-AIED-ETS
-excerpt: 'This text is left as an optional excerpt.'
 date: 2022-06-27
 venue: 'International Conference on Artificial Intelligence in Education'
 paperurl: 'http://aadair3.github.io/files/papers/2022-AIED-ETS.pdf'
