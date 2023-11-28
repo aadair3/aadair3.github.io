@@ -54,7 +54,7 @@
         </details>
       {% endif %}
       
-      <!-- citation and icon code -->
+      <!-- citation and icon code + tags-->
       <p>
       {% if post.citation %}
         {{ post.citation }}
@@ -67,7 +67,12 @@
         <a href="{{ post.paperurl }}" target="_blank"><i class="fas fa-fw fa-file-pdf zoom" aria-hidden="true"></i></a>
       {% endif %}
       {% if post.slidesurl %}
-      <a href="{{ post.slidesurl }}" target="_blank"><i class="fas fa-fw fa-file-powerpoint zoom" aria-hidden="true"></i></a>
+        <a href="{{ post.slidesurl }}" target="_blank"><i class="fas fa-fw fa-file-powerpoint zoom" aria-hidden="true"></i></a>
+      {% endif %}
+      {% if post.tags %}
+        {% for tag in post.tags %}
+          <a href="{{ base_path }}{{ tag_word | slugify | prepend: path_type | prepend: site.tag_archive.path }}" class="page__taxonomy-item" rel="tag">{{ tag }}</a>{% unless forloop.last %}<span class="sep">, </span>{% endunless %}
+        {% endfor %}
       {% endif %}
       </p>
     {% elsif post.collection == 'posts' and post.date %}
