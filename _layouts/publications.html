@@ -45,14 +45,13 @@ layout: default
         </select>
       </div>
       <div id="posts-container">
-        {% for post in site.publications %}
+        {% for post in site.publications reversed %}
             <div class="post" data-date="{{ post.date | date: '%s' }}">
                 {% include archive-single.html %}
             </div>
         {% endfor %}
       </div>
     {% endunless %}
-    <!-- {{ content }} -->
   </div>
 </div>
 
