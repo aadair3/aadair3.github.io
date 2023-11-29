@@ -80,7 +80,7 @@
   }
 
   .archive__item-title {
-    text-decoration: underline;
+    // text-decoration: underline;
   }
 }
 
@@ -243,3 +243,86 @@
     }
   }
 }
+
+/*
+   Custom Tags
+   ========================================================================== */
+
+   .tag {
+    display: inline-block;
+    padding: 4px 8px;
+    margin-right: 8px;
+    border-radius: 4px;
+    color: white;
+  }
+  
+  /* Add additional styling based on your design preferences */
+  .tag[data-color='Peer-Reviewed Conference Proceedings'] {
+    background-color: #3498db;
+  }
+  
+  .tag[data-color='Peer-Reviewed Conference Presentations'] {
+    background-color: #2ecc71;
+  }
+
+  .tag[data-color='Academic Seminars'] {
+    background-color: #FFBF00;
+  }
+
+  .tag[data-color='Teacher Conference Presentations'] {
+    background-color: #E83F6F;
+  }
+
+  .tag[data-color='Magazine Articles'] {
+    background-color: #7A28CB;
+  }
+
+  
+/*
+   Custom Filter
+   ========================================================================== */
+
+   .multiselect {
+    width: 200px;
+    margin-bottom: 10px; /* Adjust as needed */
+  }
+  
+  .selectBox {
+    position: relative;
+    width: 100%;
+  }
+  
+  .selectBox select {
+    width: 100%;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  .overSelect {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
+  
+  #checkboxes {
+    display: none;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  
+  #checkboxes label {
+    display: block;
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  #checkboxes label:hover {
+    background-color: #efefef;
+  }

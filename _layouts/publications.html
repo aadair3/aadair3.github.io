@@ -20,19 +20,32 @@ layout: default
       <h1 class="page__title">{{ page.title }}</h1>
       <div>
         <strong>Filter by Type</strong>
-        <div id="tag-buttons">
-            {% assign collection_posts = site.publications %}
-            {% assign all_tags = "" %}
-            {% for post in collection_posts %}
-              {% assign post_tags = post.tags | join: ',' | append: ',' %}
-              {% assign all_tags = all_tags | append: post_tags %}
-            {% endfor %}
-            {% assign unique_tags = all_tags | split: ',' | uniq %}
+        <div class="multiselect">
+          <div class="selectBox" onclick="showCheckboxes()">
+            <select id="tag-selector" multiple>
+              <option value="all">All</option>
+              {% assign collection_posts = site.publications %}
+              {% assign all_tags = "" %}
+              {% for post in collection_posts %}
+                {% assign post_tags = post.tags | join: ',' | append: ',' %}
+                {% assign all_tags = all_tags | append: post_tags %}
+              {% endfor %}
+              {% assign unique_tags = all_tags | split: ',' | uniq %}
 
-            <button class="tag-button" data-tag="all">All</button>
+              {% for tag in unique_tags %}
+                <option value="{{ tag }}">{{ tag }}</option>
+              {% endfor %}
+            </select>
+            <div class="overSelect"></div>
+          </div>
+          <div id="checkboxes" class="checkboxes">
             {% for tag in unique_tags %}
-              <button class="tag-button" data-tag="{{ tag }}">{{ tag }}</button>
+              <label for="{{ tag }}">
+                <input type="checkbox" id="{{ tag }}" class="tag-checkbox" onchange="filterPosts()">
+                {{ tag }}
+              </label>
             {% endfor %}
+          </div>
         </div>
       </div>
       <div>
@@ -56,17 +69,32 @@ layout: default
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Function to filter posts by tags
+      function showCheckboxes() {
+        var checkboxes = document.getElementById("checkboxes");
+        if (!checkboxes.style.display || checkboxes.style.display === "none") {
+          checkboxes.style.display = "block";
+        } else {
+          checkboxes.style.display = "none";
+        }
+      }  
+      // Function to filter posts by selected tags
         function filterPostsByTag(tag) {
-            const posts = Array.from(document.querySelectorAll('.post'));
-            posts.forEach(post => {
-                const postTags = post.getAttribute('data-tags').split(',');
-                if (tag === 'all' || postTags.includes(tag)) {
-                    post.style.display = 'block';
-                } else {
-                    post.style.display = 'none';
-                }
-            });
+          const checkboxes = document.querySelectorAll('.tag-checkbox');
+          const selectedTags = Array.from(checkboxes)
+
+          .filter(checkbox => checkbox.checked)
+          .map(checkbox => checkbox.id);
+          
+          const posts = Array.from(document.querySelectorAll('.post'));
+          
+          posts.forEach(post => {
+            const postTags = post.getAttribute('data-tags').split(',');
+            if (selectedTags.length === 0 || selectedTags.some(tag => postTags.includes(tag))) {
+              post.style.display = 'block';
+            } else {
+              post.style.display = 'none';
+            }
+          });
         }
 
         // Function to sort posts by date
