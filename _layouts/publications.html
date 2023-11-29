@@ -20,33 +20,31 @@ layout: default
       <h1 class="page__title">{{ page.title }}</h1>
       <div>
         <strong>Filter by Type</strong>
-        <ul>
-            {% assign tags =  site.publications | map: 'tags' | join: ','  | split: ',' | uniq %}
-            <a href="{{ base_path }}{{ tag_word | slugify | prepend: path_type | prepend: site.tag_archive.path }}" class="page__taxonomy-item" rel="tag">All</a>{% unless forloop.last %}<span class="sep">, </span>{% endunless %}
-            {% for tag in tags %}
-                <a href="{{ base_path }}{{ tag_word | slugify | prepend: path_type | prepend: site.tag_archive.path }}" class="page__taxonomy-item" rel="tag">{{ tag }}</a>{% unless forloop.last %}<span class="sep">, </span>{% endunless %}
-                <!-- <h3>{{ tag }}</h3> -->
-                <!-- <ul>
-                    <li><a href="#{{ tag }}"></a></li>
-                    {% for pub in site.publications %}
-                        {% if pub.tags contains tag %}
-                        <li><a href="{{ site.baseurl }}{{ pub.url }}">{{ pub.title }}</a></li>
-                        {% endif %}
-                    {% endfor %}
-                </ul> -->
+        <div id="tag-buttons">
+            {% assign collection_posts = site.publications %}
+            {% assign all_tags = "" %}
+            {% for post in collection_posts %}
+              {% assign post_tags = post.tags | join: ',' | append: ',' %}
+              {% assign all_tags = all_tags | append: post_tags %}
             {% endfor %}
-        </ul>
+            {% assign unique_tags = all_tags | split: ',' | uniq %}
+
+            <button class="tag-button" data-tag="all">All</button>
+            {% for tag in unique_tags %}
+              <button class="tag-button" data-tag="{{ tag }}">{{ tag }}</button>
+            {% endfor %}
+        </div>
       </div>
       <div>
         <strong>Sort by:</strong>
         <select id="sort-selector">
-          <option value="new-to-old">New to Old</option>
-          <option value="old-to-new">Old to New</option>
+          <option value="new-to-old">Newest to Oldest</option>
+          <option value="old-to-new">Oldest to Newest</option>
         </select>
       </div>
       <div id="posts-container">
         {% for post in site.publications reversed %}
-            <div class="post" data-date="{{ post.date | date: '%s' }}">
+            <div class="post" data-date="{{ post.date | date: '%s' }}" data-tags="{{ post.tags | join: ',' }}">
                 {% include archive-single.html %}
             </div>
         {% endfor %}
@@ -58,31 +56,59 @@ layout: default
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const sortSelector = document.getElementById('sort-selector');
-        const postsContainer = document.getElementById('posts-container');
-        const posts = Array.from(postsContainer.children);
-
-        sortSelector.addEventListener('change', function () {
-            const selectedOption = sortSelector.value;
-
-            posts.sort(function (a, b) {
-            const dateA = parseInt(a.getAttribute('data-date'));
-            const dateB = parseInt(b.getAttribute('data-date'));
-
-            if (selectedOption === 'new-to-old') {
-                return dateB - dateA;
-            } else if (selectedOption === 'old-to-new') {
-                return dateA - dateB;
-            }
-
-            // Add more sorting options as needed
-
-            return 0;
-            });
-
+        // Function to filter posts by tags
+        function filterPostsByTag(tag) {
+            const posts = Array.from(document.querySelectorAll('.post'));
             posts.forEach(post => {
-            postsContainer.appendChild(post);
+                const postTags = post.getAttribute('data-tags').split(',');
+                if (tag === 'all' || postTags.includes(tag)) {
+                    post.style.display = 'block';
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+        }
+
+        // Function to sort posts by date
+        function sortPostsByDate(option) {
+            const postsContainer = document.getElementById('posts-container');
+            const posts = Array.from(postsContainer.children);
+            
+            posts.sort(function (a, b) {
+                const dateA = parseInt(a.getAttribute('data-date'));
+                const dateB = parseInt(b.getAttribute('data-date'));
+                
+                if (option === 'new-to-old') {
+                    return dateB - dateA;
+                } else if (option === 'old-to-new') {
+                    return dateA - dateB;
+                }
+                
+                // Add more sorting options as needed
+                
+                return 0;
+            });
+            
+            posts.forEach(post => {
+                postsContainer.appendChild(post);
+            });
+        }
+
+        // Event listener for tag filter
+        const tagButtons = document.querySelectorAll('.tag-button');
+        tagButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const selectedTag = this.getAttribute('data-tag');
+                filterPostsByTag(selectedTag);
             });
         });
+        
+        // Event listener for date sorting
+        const sortSelector = document.getElementById('sort-selector');
+        sortSelector.addEventListener('change', function () {
+            const selectedOption = sortSelector.value;
+            sortPostsByDate(selectedOption);
+        });
+
         });
 </script>
