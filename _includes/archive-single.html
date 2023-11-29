@@ -67,10 +67,10 @@
         <a href="{{ post.paperurl }}" target="_blank"><i class="fas fa-fw fa-file-pdf zoom" aria-hidden="true"></i></a>
       {% endif %}
       {% if post.slidesurl %}
-        <a href="{{ post.slidesurl }}" target="_blank"><i class="fas fa-fw fa-slideshare zoom" aria-hidden="true"></i></a>
+        <a href="{{ post.slidesurl }}" target="_blank"><i class="fas fa-fw fa-desktop zoom" aria-hidden="true"></i></a>
       {% endif %}
-      {% if post.youtubeurl %}
-        <a href="{{ post.youtubeurl }}" target="_blank"><i class="fas fa-fw fa-youtube-play zoom" aria-hidden="true"></i></a>
+      {% if post.videourl %}
+        <a href="{{ post.videourl }}" target="_blank"><i class="fas fa-fw fa-video zoom" aria-hidden="true"></i></a>
       {% endif %}
       {% if post.tags %}
         {% for tag in post.tags %}
