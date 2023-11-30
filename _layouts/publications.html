@@ -19,61 +19,39 @@ layout: default
     {% unless page.header.overlay_color or page.header.overlay_image %}
       <h1 class="page__title">{{ page.title }}</h1>
       <div>
-        <strong>Filter by Type</strong>
-        <div class="multi-selector">
-          <div class="select-field">
-            <input type="text" name="" placeholder="Select Publication Type" id="" class="input-selector">
-            <span class="dropdown-arrow">&blacktriangleleft;</span>
-
-            <div class="tag-list">
-              {% assign collection_posts = site.publications %}
-              {% assign all_tags = "" %}
-              {% for post in collection_posts %}
-                {% assign post_tags = post.tags | join: ',' | append: ',' %}
-                {% assign all_tags = all_tags | append: post_tags %}
-              {% endfor %}
-              {% assign unique_tags = all_tags | split: ',' | uniq %}
-
-              {% for tag in unique_tags %}
-                <label for="{{ tag }}" class="dropdown-tag">
-                  <input type="checkbox" name="" id="{{ tag }}">
-                  {{ tag }}
+        <div>
+          <strong>Filter by Type</strong>
+          <div class="filter-container">
+            <div class="filter-dropdown">
+              <button onclick="toggleFilterDropdown()">Filter by Publication Type</button>
+              <div id="filter-options" class="filter-options">
+                <label>
+                  <input type="checkbox" value="select-all" id="select-all"> Select All
                 </label>
-              {% endfor %}
+                {% assign collection_posts = site.publications %}
+                {% assign all_tags = "" %}
+                {% for post in collection_posts %}
+                  {% assign post_tags = post.tags | join: ',' | append: ',' %}
+                  {% assign all_tags = all_tags | append: post_tags %}
+                {% endfor %}
+                {% assign unique_tags = all_tags | split: ',' | uniq %}
+                {% for tag in unique_tags %}
+                  <label>
+                    <input type="checkbox" value="{{ tag }}" class="tag-checkbox"> {{ tag }}
+                  </label>
+                {% endfor %}
+                <button onclick="applyFilter()">Done</button>
+              </div>
             </div>
-            
-            <!-- <select id="tag-selector" multiple>
-              <option value="all">All</option>
-              {% assign collection_posts = site.publications %}
-              {% assign all_tags = "" %}
-              {% for post in collection_posts %}
-                {% assign post_tags = post.tags | join: ',' | append: ',' %}
-                {% assign all_tags = all_tags | append: post_tags %}
-              {% endfor %}
-              {% assign unique_tags = all_tags | split: ',' | uniq %}
-
-              {% for tag in unique_tags %}
-                <option value="{{ tag }}">{{ tag }}</option>
-              {% endfor %}
-            </select>
-            <div class="overSelect"></div> -->
           </div>
-          <!-- <div id="checkboxes" class="checkboxes">
-            {% for tag in unique_tags %}
-              <label for="{{ tag }}">
-                <input type="checkbox" id="{{ tag }}" class="tag-checkbox" onchange="filterPosts()">
-                {{ tag }}
-              </label>
-            {% endfor %}
-          </div> -->
         </div>
-      </div>
-      <div>
-        <strong>Sort by:</strong>
-        <select id="sort-selector">
-          <option value="new-to-old">Newest to Oldest</option>
-          <option value="old-to-new">Oldest to Newest</option>
-        </select>
+        <div>
+          <strong>Sort by:</strong>
+          <select id="sort-selector" class="sort-selector">
+            <option value="new-to-old">Newest to Oldest</option>
+            <option value="old-to-new">Oldest to Newest</option>
+          </select>
+        </div>
       </div>
       <div id="posts-container">
         {% for post in site.publications reversed %}
@@ -89,26 +67,6 @@ layout: default
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-      document.querySelector('.select-field').addEventListener('click', () => {
-        document.querySelector('.tag-list').classList.toggle('show');
-        document.querySelector('.dropdown-arrow').classList.toggle('rotate')
-      })
-
-      // Function to filter posts by selected tags
-        function filterPostsByTag(tag) {
-          const selectedTags = document.querySelector('.select-field')
-          const posts = Array.from(document.querySelectorAll('.post'));
-          
-          posts.forEach(post => {
-            const postTags = post.getAttribute('data-tags').split(',');
-            if (selectedTags.length === 0 || selectedTags.some(tag => postTags.includes(tag))) {
-              post.style.display = 'block';
-            } else {
-              post.style.display = 'none';
-            }
-          });
-        }
-
         // Function to sort posts by date
         function sortPostsByDate(option) {
             const postsContainer = document.getElementById('posts-container');
@@ -154,4 +112,59 @@ layout: default
         });
 
         });
+function toggleFilterDropdown() {
+  const filterOptions = document.getElementById('filter-options');
+  filterOptions.style.display = (filterOptions.style.display === 'block') ? 'none' : 'block';
+}
+
+// Function to filter posts by selected tags
+function filterPostsByTag(tag) {
+  const selectedTags = document.querySelector('.select-field')
+  const posts = Array.from(document.querySelectorAll('.post'));
+  
+  posts.forEach(post => {
+    const postTags = post.getAttribute('data-tags').split(',');
+    if (selectedTags.length === 0 || selectedTags.some(tag => postTags.includes(tag))) {
+      post.style.display = 'block';
+    } else {
+      post.style.display = 'none';
+    }
+  });
+}
+
+// Get all checkboxes and the "Select All" checkbox
+const checkboxes = document.querySelectorAll('.tag-checkbox');
+const selectAllCheckbox = document.getElementById('select-all');
+
+// Add a change event listener to the "Select All" checkbox
+selectAllCheckbox.addEventListener('change', function () {
+  // Set all individual tag checkboxes to the state of "Select All" checkbox
+  checkboxes.forEach(checkbox => {
+    checkbox.checked = selectAllCheckbox.checked;
+  });
+  selectAllCheckbox.value = selectAllCheckbox.checked ? 'Deselect All' : 'Select All';
+});
+
+
+
+function applyFilter() {
+  // Update the post display based on the selected tags
+  const allPosts = document.querySelectorAll('.post');
+  const selectedTags = Array.from(checkboxes)
+  .filter(checkbox => checkbox.checked)
+  .map(checkbox => checkbox.value);
+
+  allPosts.forEach(post => {
+    const postTags = post.getAttribute('data-tags').split(',');
+
+    if (selectedTags.length === 0 || selectedTags.some(tag => postTags.includes(tag))) {
+      post.style.display = 'block';
+    } else {
+      post.style.display = 'none';
+    }
+  });
+
+
+  toggleFilterDropdown();
+}
 </script>

@@ -4,6 +4,7 @@ collection: publications
 permalink: /publication/2021-STD-Dashboard
 date: 2021-08-02
 venue: 'Annual Meeting of the Society for Text and Discourse'
+authors: 'Rachel Dickler, Janice Gobert, Amy Adair, Joe Olsen'
 paperurl: 'http://aadair3.github.io/files/papers/2021-STD-Dashboard.pdf'
 link: 'https://easychair.org/publications/preprint/d4lM'
 citation: 'Dickler, R., Gobert, J., Adair, A., & Olsen, J. (2021, August). <i>Using a teacher dashboard to support students remotely on science inquiry</i> [Conference presentation]. Annual Meeting of the Society for Text and Discourse.'
