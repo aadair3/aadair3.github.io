@@ -58,16 +58,6 @@
         </blockquote>
         </details>
       {% endif %}
-      {% if post.citation %}
-        <details><summary>Citation</summary>
-        <blockquote>
-        <p>
-        {{ post.citation }}
-        </p>
-        </blockquote>
-        </details>
-    {% endif %}
-      
       
       <p>
       {% if post.link %}
@@ -82,10 +72,11 @@
       {% if post.videourl %}
         <a href="{{ post.videourl }}" target="_blank"><i class="fas fa-fw fa-video zoom" aria-hidden="true"></i></a>
       {% endif %}
-      {% if post.tags %}
-        {% for tag in post.tags %}
-          <span class="tag" data-color="{{ tag | tag_color }}"> {{ tag }} </span>
-        {% endfor %}
+      {% if post.citation %}
+        <details class="icon-details" onclick="toggleGlow(this)">
+          <summary><i class="fas fa-fw fa-quote-right zoom" aria-hidden="true"></i></summary>
+          {{ post.citation }}
+        </details>
       {% endif %}
       </p>
     {% elsif post.collection == 'posts' and post.date %}
@@ -126,4 +117,8 @@
       tag.style.backgroundColor = color;
     });
   });
+
+  function toggleGlow(detailsElement) {
+  detailsElement.dataset.glow = detailsElement.hasAttribute('open');
+}
 </script>

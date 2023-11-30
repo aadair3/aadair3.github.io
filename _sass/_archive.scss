@@ -277,7 +277,7 @@
     background-color: #7A28CB;
   }
 
-  
+
 /*
    Custom Filter
    ========================================================================== */
@@ -326,3 +326,26 @@
   #checkboxes label:hover {
     background-color: #efefef;
   }
+
+/*
+   Custom Details
+   ========================================================================== */
+
+  /* Details with Icon and Glow */
+.icon-details {
+  summary {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .icon {
+    display: inline-block;
+    font-size: 1.5em;
+  }
+
+  /* Glow effect */
+  &[data-glow="true"] summary .icon {
+    color: #00f; /* Adjust the glow color as needed */
+    text-shadow: 0 0 5px #00f; /* Adjust the shadow size and color as needed */
+  }
+}
