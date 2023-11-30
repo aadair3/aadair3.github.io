@@ -281,51 +281,58 @@
 /*
    Custom Filter
    ========================================================================== */
+input {
+  outline: none;
+  border: none;
+}
 
-   .multiselect {
-    width: 200px;
-    margin-bottom: 10px; /* Adjust as needed */
-  }
-  
-  .selectBox {
-    position: relative;
-    width: 100%;
-  }
-  
-  .selectBox select {
-    width: 100%;
-    padding: 5px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    cursor: pointer;
-  }
-  
-  .overSelect {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-  }
-  
-  #checkboxes {
-    display: none;
-    border: 1px solid #ccc;
-    max-height: 150px;
-    overflow-y: auto;
-  }
-  
-  #checkboxes label {
-    display: block;
-    padding: 8px;
-    cursor: pointer;
-  }
-  
-  #checkboxes label:hover {
-    background-color: #efefef;
-  }
+.multi-selector {
+  width: max-content;
+}
+
+.select-field {
+  border: 1px solid black;
+}
+
+.select-field, .dropdown-tag, .tag-list {
+  width: 100%;
+  background-color: white;
+  padding: 0.3rem;
+}
+
+.tag-list {
+  box-shadow: 0 30px 60px black;
+  display: none;
+}
+
+.dropdown-arrow {
+  font-size: 1.2rem;
+  display: inline-block;
+  transform: 0.2s linear;
+  cursor: pointer;
+}
+
+.dropdown-tag {
+  display: block;
+}
+
+.dropdown-tag span{
+  float: right;
+  font-size: 0.6rem;
+  padding-top: 6px;
+}
+
+.dropdown-tag:hover{
+  background-color: aliceblue;
+}
+
+.show {
+  display: block;
+}
+
+.rotate {
+  transform: rotate(-90deg);
+}
 
 /*
    Custom Details

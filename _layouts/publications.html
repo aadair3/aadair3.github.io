@@ -20,9 +20,29 @@ layout: default
       <h1 class="page__title">{{ page.title }}</h1>
       <div>
         <strong>Filter by Type</strong>
-        <div class="multiselect">
-          <div class="selectBox" onclick="showCheckboxes()">
-            <select id="tag-selector" multiple>
+        <div class="multi-selector">
+          <div class="select-field">
+            <input type="text" name="" placeholder="Select Publication Type" id="" class="input-selector">
+            <span class="dropdown-arrow">&blacktriangleleft;</span>
+
+            <div class="tag-list">
+              {% assign collection_posts = site.publications %}
+              {% assign all_tags = "" %}
+              {% for post in collection_posts %}
+                {% assign post_tags = post.tags | join: ',' | append: ',' %}
+                {% assign all_tags = all_tags | append: post_tags %}
+              {% endfor %}
+              {% assign unique_tags = all_tags | split: ',' | uniq %}
+
+              {% for tag in unique_tags %}
+                <label for="{{ tag }}" class="dropdown-tag">
+                  <input type="checkbox" name="" id="{{ tag }}">
+                  {{ tag }}
+                </label>
+              {% endfor %}
+            </div>
+            
+            <!-- <select id="tag-selector" multiple>
               <option value="all">All</option>
               {% assign collection_posts = site.publications %}
               {% assign all_tags = "" %}
@@ -36,16 +56,16 @@ layout: default
                 <option value="{{ tag }}">{{ tag }}</option>
               {% endfor %}
             </select>
-            <div class="overSelect"></div>
+            <div class="overSelect"></div> -->
           </div>
-          <div id="checkboxes" class="checkboxes">
+          <!-- <div id="checkboxes" class="checkboxes">
             {% for tag in unique_tags %}
               <label for="{{ tag }}">
                 <input type="checkbox" id="{{ tag }}" class="tag-checkbox" onchange="filterPosts()">
                 {{ tag }}
               </label>
             {% endfor %}
-          </div>
+          </div> -->
         </div>
       </div>
       <div>
@@ -69,22 +89,14 @@ layout: default
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-      function showCheckboxes() {
-        var checkboxes = document.getElementById("checkboxes");
-        if (!checkboxes.style.display || checkboxes.style.display === "none") {
-          checkboxes.style.display = "block";
-        } else {
-          checkboxes.style.display = "none";
-        }
-      }  
+      document.querySelector('.select-field').addEventListener('click', () => {
+        document.querySelector('.tag-list').classList.toggle('show');
+        document.querySelector('.dropdown-arrow').classList.toggle('rotate')
+      })
+
       // Function to filter posts by selected tags
         function filterPostsByTag(tag) {
-          const checkboxes = document.querySelectorAll('.tag-checkbox');
-          const selectedTags = Array.from(checkboxes)
-
-          .filter(checkbox => checkbox.checked)
-          .map(checkbox => checkbox.id);
-          
+          const selectedTags = document.querySelector('.select-field')
           const posts = Array.from(document.querySelectorAll('.post'));
           
           posts.forEach(post => {
@@ -123,14 +135,17 @@ layout: default
         }
 
         // Event listener for tag filter
-        const tagButtons = document.querySelectorAll('.tag-button');
-        tagButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const selectedTag = this.getAttribute('data-tag');
-                filterPostsByTag(selectedTag);
-            });
-        });
+        // const tagButtons = document.querySelectorAll('.tag-button');
+        // tagButtons.forEach(button => {
+        //     button.addEventListener('click', function () {
+        //         const selectedTag = this.getAttribute('data-tag');
+        //         filterPostsByTag(selectedTag);
+        //     });
+        // });
         
+        // Event listener for tag filter (attempt 2)
+
+
         // Event listener for date sorting
         const sortSelector = document.getElementById('sort-selector');
         sortSelector.addEventListener('change', function () {
