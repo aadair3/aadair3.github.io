@@ -260,41 +260,6 @@
 }
 
 /*
-   Custom Tags
-   ========================================================================== */
-
-   .tag {
-    display: inline-block;
-    padding: 2px 4px;
-    margin-right: 2px;
-    border-radius: 4px;
-    font-size: 0.75em;
-    color: white;
-  }
-  
-  /* Add additional styling based on your design preferences */
-  .tag[data-color='Peer-Reviewed Conference Proceedings'] {
-    background-color: #3498db;
-  }
-  
-  .tag[data-color='Peer-Reviewed Conference Presentations'] {
-    background-color: #2ecc71;
-  }
-
-  .tag[data-color='Academic Seminars'] {
-    background-color: #FFBF00;
-  }
-
-  .tag[data-color='Teacher Conference Presentations'] {
-    background-color: #E83F6F;
-  }
-
-  .tag[data-color='Magazine Articles'] {
-    background-color: #7A28CB;
-  }
-
-
-/*
    Custom Filter
    ========================================================================== */
    .filter-container {
@@ -346,40 +311,77 @@
     background-color: #2980b9;
   }
 
+/*
+   Custom Tags
+   ========================================================================== */
+
+   .tag {
+    // position: absolute;
+    display: inline-block;
+    padding: 2px 4px;
+    margin-right: 2px;
+    border-radius: 4px;
+    font-size: 0.75em;
+    color: white;
+  }
+  
+  /* Add additional styling based on your design preferences */
+  .tag[data-color='Peer-Reviewed Conference Proceedings'] {
+    background-color: #3498db;
+  }
+  
+  .tag[data-color='Peer-Reviewed Conference Presentations'] {
+    background-color: #2ecc71;
+  }
+
+  .tag[data-color='Academic Seminars'] {
+    background-color: #FFBF00;
+  }
+
+  .tag[data-color='Teacher Conference Presentations'] {
+    background-color: #E83F6F;
+  }
+
+  .tag[data-color='Magazine Articles'] {
+    background-color: #7A28CB;
+  }
 
 /*
    Custom Details
    ========================================================================== */
 
+  .icon-container {
+    display: flex;
+    // align-items: center;
+    // justify-content: center;
+    // height: 100vh; /* Adjust as needed */
+  }
+  
+
   /* Details with Icon and Glow */
-.icon-details {
-  summary {
-    position: relative;
-    color: #2979ab;
-    cursor: pointer;
-  }
+  .icon-details {
+    summary {
+      position: relative;
+      color: #2979ab;
+      cursor: pointer;
+    }
 
-  summary::marker {
-    content: "";
-  }
+    summary::marker {
+      content: "";
+    }
 
-  p {
-    background-color: #f7f7f7;
-    padding: 4px 4px 4px 8px;
-    margin: 0;
-    box-shadow: 1px 1px 2px #bbbbbb;
-    font-size: 0.8em;
-    width: 75%;
-  }
+    p {
+      background-color: #f7f7f7;
+      padding: 4px 4px 4px 8px;
+      margin: 0;
+      box-shadow: 1px 1px 2px #bbbbbb;
+      font-size: 0.8em;
+      width: 75%;
+    }
 
-  .icon {
-    display: inline-block;
-    font-size: 1em;
-  }
+    .icon {
+      display: inline-block;
+      font-size: 1em;
+    }
 
-  /* Glow effect */
-  &[data-glow="true"] summary .icon {
-    color: #00f; /* Adjust the glow color as needed */
-    text-shadow: 0 0 5px #00f; /* Adjust the shadow size and color as needed */
   }
-}

@@ -56,7 +56,7 @@ layout: default
       <div id="posts-container">
         {% for post in site.publications reversed %}
             <div class="post" data-date="{{ post.date | date: '%s' }}" data-tags="{{ post.tags | join: ',' }}">
-                {% include archive-single.html %}
+                {% include archive-single-publication.html %}
             </div>
         {% endfor %}
       </div>
