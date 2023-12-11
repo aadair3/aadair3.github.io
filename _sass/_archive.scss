@@ -54,8 +54,23 @@
   }
 }
 
+.archive__subtitle-year {
+  margin: 0em 0 0;
+  padding-bottom: 0.5em;
+  font-size: xx-large;
+  font-weight: lighter;
+  text-align: center;
+  color: mix(#fff, $gray, 50%);
+  margin-bottom: 0.5em;
+
+  + .list__item .archive__item-title {
+    margin-top: 0.5em;
+  }
+}
+
 .archive__item-title {
   margin-bottom: 0.25em;
+  margin-top: auto;
   font-family: $sans-serif-narrow;
 
   a + a {
@@ -260,6 +275,31 @@
 }
 
 /*
+   Custom Publication Style
+   ========================================================================== */
+
+  .publication-row {
+    display: flex;
+    border-top: 1px solid #ccc; /* Border at the top of each row */
+    border-bottom: 1px solid #ccc; /* Border at the bottom of each row */
+    padding: 10px; /* Adjust as needed */
+  }
+
+  .tag-column {
+    flex: 1;
+  }
+  
+  .info-column {
+    flex: 3; /* Larger middle column */
+  }
+  
+  .year-column {
+    flex: 1;
+  }
+  
+
+
+/*
    Custom Filter
    ========================================================================== */
    .filter-container {
@@ -319,9 +359,10 @@
     // position: absolute;
     display: inline-block;
     padding: 2px 4px;
-    margin-right: 2px;
     border-radius: 4px;
+    width: 85%;
     font-size: 0.75em;
+    text-align: center;
     color: white;
   }
   
@@ -376,7 +417,7 @@
       margin: 0;
       box-shadow: 1px 1px 2px #bbbbbb;
       font-size: 0.8em;
-      width: 75%;
+      width: 100%;
     }
 
     .icon {

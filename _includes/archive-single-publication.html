@@ -6,65 +6,56 @@
   {% assign title = post.title %}
 {% endif %}
 
-<div class="{{ include.type | default: 'list' }}__item">
-    <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-      {% if include.type == "grid" and teaser %}
-        <div class="archive__item-teaser">
-          <img src=
-            {% if teaser contains "://" %}
-              "{{ teaser }}"
-            {% else %}
-              "{{ teaser | prepend: "/images/" | prepend: base_path }}"
-            {% endif %}
-            alt="">
-        </div>
-      {% endif %}
-  
-      <h2 class="archive__item-title" itemprop="headline">{{ title }}</h2>
-      <h3 class="archive__subtitle"> {{ post.authors }} </h3>
-      <h3 class="archive__subtitle"> {{ post.date | date: "%Y" }} </h3>
-      <h3 class="archive__subtitle-venue"> {{ post.venue }} </h3>
-
-      <div class="icon-container">
+<div class="publication-row">
+    <div class="tag-column">
         {% if post.tags %}
-          {% for tag in post.tags %}
-            <span class="tag" data-color="{{ tag | tag_color }}"> {{ tag }} </span>
-          {% endfor %}
+            {% for tag in post.tags %}
+                <span class="tag" data-color="{{ tag | tag_color }}"> {{ tag }} </span>
+            {% endfor %}
         {% endif %}
-        {% if post.link %}
-          <a href="{{ post.link }}" target="_blank"><i class="fas fa-fw fa-link zoom" aria-hidden="true"></i></a>
-        {% endif %}
-        {% if post.paperurl %}
-          <a href="{{ post.paperurl }}" target="_blank"><i class="fas fa-fw fa-file-pdf zoom" aria-hidden="true"></i></a>
-        {% endif %}
-        {% if post.slidesurl %}
-          <a href="{{ post.slidesurl }}" target="_blank"><i class="fas fa-fw fa-file-pdf zoom" aria-hidden="true"></i></a>
-        {% endif %}
-        {% if post.videourl %}
-          <a href="{{ post.videourl }}" target="_blank"><i class="fas fa-fw fa-video zoom" aria-hidden="true"></i></a>
-        {% endif %}
-        {% if post.citation %}
-          <details class="icon-details">
-            <summary><i class="fas fa-fw fa-quote-right zoom" aria-hidden="true"></i></summary>
-            <p><b>Recommended Citation (APA):</b><br>{{ post.citation }}</p>
-          </details>
-        {% endif %}
-        {% if post.abstract %}
-          <details class="icon-details">
-            <summary><i class="fas fa-fw fa-info-circle zoom" aria-hidden="true"></i></summary>
-            <blockquote>
-              <p><b>Abstract:</b><br>{{ post.abstract }}</p>
-            </blockquote>
-          </details>
-        {% endif %}
-      </div>
-  </article>
+    </div>
+    <div class="info-column">
+        <h2 class="archive__item-title" itemprop="headline">{{ title }}</h2>
+        <h3 class="archive__subtitle"> {{ post.authors }} </h3>
+        <h3 class="archive__subtitle-venue"> {{ post.venue }} </h3>
+        <div class="icon-container">
+            {% if post.link %}
+              <a href="{{ post.link }}" target="_blank"><i class="fas fa-fw fa-link zoom" aria-hidden="true"></i></a>
+            {% endif %}
+            {% if post.paperurl %}
+              <a href="{{ post.paperurl }}" target="_blank"><i class="fas fa-fw fa-file-pdf zoom" aria-hidden="true"></i></a>
+            {% endif %}
+            {% if post.slidesurl %}
+              <a href="{{ post.slidesurl }}" target="_blank"><i class="fas fa-fw fa-file-pdf zoom" aria-hidden="true"></i></a>
+            {% endif %}
+            {% if post.videourl %}
+              <a href="{{ post.videourl }}" target="_blank"><i class="fas fa-fw fa-video zoom" aria-hidden="true"></i></a>
+            {% endif %}
+            {% if post.citation %}
+              <details class="icon-details">
+                <summary><i class="fas fa-fw fa-quote-right zoom" aria-hidden="true"></i></summary>
+                <p><b>Recommended Citation (APA):</b><br>{{ post.citation }}</p>
+              </details>
+            {% endif %}
+            {% if post.abstract %}
+              <details class="icon-details">
+                <summary><i class="fas fa-fw fa-info-circle zoom" aria-hidden="true"></i></summary>
+                <blockquote>
+                  <p><b>Abstract:</b><br>{{ post.abstract }}</p>
+                </blockquote>
+              </details>
+            {% endif %}
+        </div>
+    </div>
+    <div class="year-column">
+        <h4 class="archive__subtitle-year"> {{ post.date | date: "%Y" }} </h4>
+    </div>
 </div>
   
         
 
   
-  <script>
+<script>
     document.addEventListener('DOMContentLoaded', function () {
       const tags = document.querySelectorAll('.tag');
   
@@ -73,4 +64,4 @@
         tag.style.backgroundColor = color;
       });
     });
-  </script>
+</script>
