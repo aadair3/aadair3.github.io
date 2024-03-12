@@ -2,7 +2,7 @@
 title: "Evaluation of automated scoring methods for students’ claim, evidence, reasoning responses in science"
 collection: publications
 permalink: /publication/2023-AERA-NLP
-date: 2021-04-15
+date: 2023-04-15
 venue: 'American Educational Research Association (AERA) Annual Meeting'
 authors: 'Haiying Li, Amy Adair, Grace Li, Rachel F. Dickler, Janice Gobert'
 paperurl: 'http://aadair3.github.io/files/papers/2023-AERA-NLP.pdf'
