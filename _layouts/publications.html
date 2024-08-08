@@ -18,15 +18,15 @@ layout: default
   <div class="archive">
     {% unless page.header.overlay_color or page.header.overlay_image %}
       <h1 class="page__title">{{ page.title }}</h1>
-      <div>
+      <div class="controls-container">
         <div>
-          <strong>Filter by Type</strong>
+          <!-- <strong>Filter by Type</strong> -->
           <div class="filter-container">
             <div class="filter-dropdown">
-              <button onclick="toggleFilterDropdown()">Filter by Publication Type</button>
+              <button onclick="toggleFilterDropdown()"><i class="fas fa-filter fa-sm" aria-hidden="true"></i> Filter by Publication Type</button>
               <div id="filter-options" class="filter-options">
                 <label>
-                  <input type="checkbox" value="select-all" id="select-all"> Select All
+                  <input type="checkbox" id="select-all"> Select All
                 </label>
                 {% assign collection_posts = site.publications %}
                 {% assign all_tags = "" %}
@@ -34,13 +34,13 @@ layout: default
                   {% assign post_tags = post.tags | join: ',' | append: ',' %}
                   {% assign all_tags = all_tags | append: post_tags %}
                 {% endfor %}
-                {% assign unique_tags = all_tags | split: ',' | uniq %}
+                {% assign unique_tags = all_tags | split: ',' | uniq | sort %}
                 {% for tag in unique_tags %}
                   <label>
                     <input type="checkbox" value="{{ tag }}" class="tag-checkbox"> {{ tag }}
                   </label>
                 {% endfor %}
-                <button onclick="applyFilter()">Done</button>
+                <button onclick="applyFilter()">Apply Filter</button>
               </div>
             </div>
           </div>

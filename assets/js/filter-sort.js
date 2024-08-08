@@ -14,8 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 return dateA - dateB;
             }
 
-            // Add more sorting options as needed
-
             return 0;
         });
 
@@ -24,18 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Event listener for tag filter
-    // const tagButtons = document.querySelectorAll('.tag-button');
-    // tagButtons.forEach(button => {
-    //     button.addEventListener('click', function () {
-    //         const selectedTag = this.getAttribute('data-tag');
-    //         filterPostsByTag(selectedTag);
-    //     });
-    // });
-
-    // Event listener for tag filter (attempt 2)
-
-
     // Event listener for date sorting
     const sortSelector = document.getElementById('sort-selector');
     sortSelector.addEventListener('change', function() {
@@ -43,60 +29,63 @@ document.addEventListener('DOMContentLoaded', function() {
         sortPostsByDate(selectedOption);
     });
 
-});
+    
+    // Function to toggle the filter dropdown visibility
+    function toggleFilterDropdown() {
+        const filterOptions = document.getElementById('filter-options');
+        filterOptions.style.display = (filterOptions.style.display === 'block') ? 'none' : 'block';
+    }
 
-function toggleFilterDropdown() {
-    const filterOptions = document.getElementById('filter-options');
-    filterOptions.style.display = (filterOptions.style.display === 'block') ? 'none' : 'block';
-}
+    // Function to apply the filter based on selected tags
+    function applyFilter() {
+        const selectedTags = Array.from(document.querySelectorAll('.tag-checkbox:checked')).map(checkbox => checkbox.value);
+        const posts = Array.from(document.querySelectorAll('.post'));
 
-// Function to filter posts by selected tags
-function filterPostsByTag(tag) {
-    const selectedTags = document.querySelector('.select-field')
-    const posts = Array.from(document.querySelectorAll('.post'));
+        posts.forEach(post => {
+            const postTags = post.getAttribute('data-tags').split(',');
+            if (selectedTags.length === 0 || selectedTags.some(tag => postTags.includes(tag))) {
+                post.style.display = 'block';
+            } else {
+                post.style.display = 'none';
+            }
+        });
 
-    posts.forEach(post => {
-        const postTags = post.getAttribute('data-tags').split(',');
-        if (selectedTags.length === 0 || selectedTags.some(tag => postTags.includes(tag))) {
-            post.style.display = 'block';
-        } else {
-            post.style.display = 'none';
-        }
+        toggleFilterDropdown();
+    }
+
+    // Get all checkboxes and the "Select All" checkbox
+    const checkboxes = document.querySelectorAll('.tag-checkbox');
+    const selectAllCheckbox = document.getElementById('select-all');
+
+    // Add a change event listener to the "Select All" checkbox
+    selectAllCheckbox.addEventListener('change', function() {
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = selectAllCheckbox.checked;
+        });
     });
-}
 
-// Get all checkboxes and the "Select All" checkbox
-const checkboxes = document.querySelectorAll('.tag-checkbox');
-const selectAllCheckbox = document.getElementById('select-all');
-
-// Add a change event listener to the "Select All" checkbox
-selectAllCheckbox.addEventListener('change', function() {
-    // Set all individual tag checkboxes to the state of "Select All" checkbox
+    // Add change event listeners to individual checkboxes
     checkboxes.forEach(checkbox => {
-        checkbox.checked = selectAllCheckbox.checked;
+        checkbox.addEventListener('change', function() {
+            if (!this.checked) {
+                selectAllCheckbox.checked = false;
+            } else {
+                // Check if all checkboxes are selected, then set "Select All" to checked
+                const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+                selectAllCheckbox.checked = allChecked;
+            }
+        });
     });
-    selectAllCheckbox.value = selectAllCheckbox.checked ? 'Deselect All' : 'Select All';
-});
 
-
-
-function applyFilter() {
-    // Update the post display based on the selected tags
-    const allPosts = document.querySelectorAll('.post');
-    const selectedTags = Array.from(checkboxes)
-        .filter(checkbox => checkbox.checked)
-        .map(checkbox => checkbox.value);
-
-    allPosts.forEach(post => {
-        const postTags = post.getAttribute('data-tags').split(',');
-
-        if (selectedTags.length === 0 || selectedTags.some(tag => postTags.includes(tag))) {
-            post.style.display = 'block';
-        } else {
-            post.style.display = 'none';
+    // Event listener to close the dropdown when clicking outside of it
+    document.addEventListener('click', function(event) {
+        const filterContainer = document.querySelector('.filter-container');
+        if (!filterContainer.contains(event.target)) {
+            document.getElementById('filter-options').style.display = 'none';
         }
     });
 
-
-    toggleFilterDropdown();
-}
+    // Expose functions to the global scope for button onclick attributes
+    window.toggleFilterDropdown = toggleFilterDropdown;
+    window.applyFilter = applyFilter;
+});
