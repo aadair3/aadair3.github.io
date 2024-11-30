@@ -9,8 +9,8 @@
 locale                   : "en-US"
 title                    : "Amy Elise Adair"
 title_separator          : "-"
-name                     : &name "Amy Adair"
-description              : &description "NSF Graduate Research Fellow, Doctoral Candidate, Ph.D. in Education"
+name                     : &name "Amy Adair, Ph.D."
+description              : &description "STEM Education Research & Development Consultant"
 url                      : https://amyeliseadair.com # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "aadair3/aadair3.github.io"
@@ -75,19 +75,19 @@ social:
 analytics:
   provider               :  "google-universal" # false (default), "google", "google-universal", "custom"
   google:
-    tracking_id          :
+    tracking_id          : "G-RDYRT5PC2Q"
 
 
 # Site Author
 author:
-  name             : "Amy Adair"
+  name             : "Amy Adair, Ph.D."
   avatar           : "biopic-December2020.jpg"
-  bio              : "NSF Graduate Research Fellow, Doctoral Candidate,<br>Ph.D. in Education"
+  bio              : "STEM Education Research & Development Consultant"
   location         : 
   employer         :
   pubmed           : 
   googlescholar    : "https://scholar.google.com/citations?user=yLRBn_4AAAAJ&hl=en&oi=ao"
-  email            : "amy.adair@gse.rutgers.edu"
+  email            : "amy.adair@rutgers.edu"
   researchgate     :  "https://www.researchgate.net/profile/Amy-Adair-6"
   uri              :
   bitbucket        :
