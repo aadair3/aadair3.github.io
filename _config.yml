@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Amy Elise Adair"
 title_separator          : "-"
 name                     : &name "Amy Adair, Ph.D."
-description              : &description "STEM Education Research & Development Consultant"
+description              : &description "Post-Doctoral Fellow & Consultant"
 url                      : https://amyeliseadair.com # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "aadair3/aadair3.github.io"
@@ -82,7 +82,7 @@ analytics:
 author:
   name             : "Amy Adair, Ph.D."
   avatar           : "biopic-December2020.jpg"
-  bio              : "STEM Education Research & Development Consultant"
+  bio              : "Post-Doctoral Fellow & Consultant"
   location         : 
   employer         :
   pubmed           : 
